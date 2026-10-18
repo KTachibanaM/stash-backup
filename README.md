@@ -1,30 +1,13 @@
-# Advanced stash backup system
+# Stash backup system
 
 ## Backup
 
-- Full backups
-  - Once every 7 days (or `FULL_CRON`)
-  - When over 200 changes are made
-- Incremental backup
-  - based on last full backup, does not depend on previous incremental
-- Backup consolidation
-  - On the second of the month (or `CONSOLIDATE_CRON`)
-  - If backed up more than once daily, consolidates by day otherwise month by month
+- Downloads a full database backup on the `BACKUP_CRON` schedule.
+- Saves each backup as `backup/db/YYYYMMDD-HHMMSS.sqlite`.
+- Backs up tag and performer images on the `IMG_CRON` schedule.
 
-Configure upload and notify with `.env` and `notify.sh`
+Set `STASH_URL` and `STASH_APIKEY` in `.env` or in the environment.
 
 ## Restoration
-```bash
-cat backup.diff.sql | sqlite3 full.sqlite
-```
 
-## File size savings (2025)
-- `DIFF` 1/10mins
-- `FULL` 1/day
-- Database: 14.1 -> 20.5MB
-- rescrape of scenes, lots of edits and diffs: 29.0MB
-- Average day: 18.8MB
-- Average month: 575.5MB
-- Year: 6.8G (70.1MB compressed)
-  - 397 full backups
-  - 12,690 diffs
+Open the `.sqlite` file with `sqlite3` or copy it into your stash configuration directory.

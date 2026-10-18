@@ -1,15 +1,12 @@
 services:
   stash-backup:
-    image: ghcr.io/feederbox826/stash-backup
+    build:
+      context: .
     container_name: stash-backup
     volumes:
      - ./stash-backup:/app/backup
     env_file:
       - .env
     environment:
-      - STASH_URL=http://stash:9999/graphql
-      - STASH_APIKEY=eyJ
-      - DIFF_CRON=0 0 * * * # every day
-      - FULL_CRON=0 0 */7 * * # every 7 days
-      - CONSOLIDATE_CRON=0 0 2 * * # second of every month
+      - BACKUP_CRON=0 0 * * * # every day
       - IMG_CRON=0 0 1 * * # first of every month
