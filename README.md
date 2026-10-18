@@ -1,4 +1,4 @@
-# Stash backup system
+# Stash backup
 
 ## Backup
 
